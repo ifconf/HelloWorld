@@ -34,11 +34,18 @@ def convert_csv_to_sql(csv_file_path, table_name, date_columns=[]):
     
     return insert_statements
 
+def write_sql_to_file(sql_statements, output_file_path):
+    with open(output_file_path, mode='w', newline='') as file:
+        for statement in sql_statements:
+            file.write(statement + '\n')
+
 # Example usage
 csv_file_path = 'data.csv'
 table_name = 'my_table'
 date_columns = ['birthdate', 'signup_date']  # List of columns containing date values
 
 sql_statements = convert_csv_to_sql(csv_file_path, table_name, date_columns)
-for statement in sql_statements:
-    print(statement)
+output_file_path = 'output.sql'
+write_sql_to_file(sql_statements, output_file_path)
+
+print("SQL insert statements have been written to output.sql")
